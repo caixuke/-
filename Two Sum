@@ -1,0 +1,25 @@
+/*Given an array of integers, return indices of the two numbers such that they add up to a specific target.
+
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+
+Example:
+Given nums = [2, 7, 11, 15], target = 9,
+
+Because nums[0] + nums[1] = 2 + 7 = 9,
+return [0, 1]*/
+//考虑里面数字相同的情况
+//一个个存进图里，第一个自然是匹配不到，后面每一个与所有之前的数值做匹配
+//因为相当于把所有数存进了图里，所以增加空间复杂度以减少时间复杂度
+public int[] twoSum(int[] numbers, int target){
+	int[] result = new int[2];
+	Map<Interger, Interger> map = new Hashmap<Interger, Interger>();
+	for(int i = 0; i < numbers.length; i++){
+		if(map.containsKey(target - numbers[i])){
+			result[1] = i + 1;
+			result[0] = map.get(target - numbers[i]);
+			return result;
+		}
+		map.put(numbers[i], i + 1);	
+	}
+	return result;
+}
