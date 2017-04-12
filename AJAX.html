@@ -1,0 +1,37 @@
+<html>
+<script type="text/javascript">
+	//创建XmlHttpRequest对象
+	function newObject(){
+		if(window.XMLHttpRequest){
+			req = new XMLHttpRequest();
+		}else if(window.ActiveXObject){
+			req = new ActiveXObject("Microsoft.XMLHttp");
+		}
+		//当对象的状态发生了变化，到press函数去处理，这很类似于Java的事件处理
+		//注意这是大小写敏感的语言，press后面没有小括弧
+		req.onreadystatechange = press;
+		//通过这句话将用户名发送到服务器端的验证程序
+		req.open("GET", "valiUser.bin?user = "+f1.user.value, true);
+		req.send("");
+	}
+
+	//服务器传送过来信息的响应程序
+	function press(){
+		//readystate的值，0未初始化、1正在装载、2装载完毕、3交互中、4完成
+		if(req.readyState == 4){
+			if(req.status == 200){
+				alert(req.responseHTML);
+			}
+		}
+	}
+</script>
+<body>
+	<h1>用户注册</h1>
+	<form action = "regc.bin" method = "POST" name = "f1">
+	用户名：<input type = "text" name = "user" onblur="newObject()"/><br/>
+	密码：<input type = "password" name = "pass"/><br/>
+	确认密码：<input type = "password" name =  "rpass"/><br/>
+	邮箱：<input type = "text" name = "email"/><br/>
+	</form>
+</body>
+</html>
